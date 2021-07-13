@@ -19,9 +19,19 @@ namespace UI.Controllers
         }
 
         // GET: Student
-        public ActionResult Index(StudentModel model)
+        public ActionResult Index(StudentViewModel studentViewModel)
         {
-            return View(model);
+
+            //var studentsList = new List<StudentModel>();
+            //foreach (var item in studentsList)
+            //{
+            //    studentsList.Add(new StudentModel
+            //    {
+            //        Id = item.Id,
+            //        Name = item.Name
+            //    }) ;
+            //}
+            return View(studentViewModel);
         }
 
         // GET: Student/Details/5
