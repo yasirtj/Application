@@ -22,15 +22,15 @@ namespace UI.Controllers
         public ActionResult Index(StudentViewModel studentViewModel)
         {
 
-            //var studentsList = new List<StudentModel>();
-            //foreach (var item in studentsList)
-            //{
-            //    studentsList.Add(new StudentModel
-            //    {
-            //        Id = item.Id,
-            //        Name = item.Name
-            //    }) ;
-            //}
+            var studentsList = new List<StudentModel>();
+            foreach (var item in studentsList)
+            {
+                studentsList.Add(new StudentModel
+                {
+                    Id = item.Id,
+                    Name = item.Name
+                });
+            }
             return View(studentViewModel);
         }
 
@@ -49,23 +49,38 @@ namespace UI.Controllers
         // POST: Student/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(StudentViewModel viewModel)
+        public ActionResult Create(StudentViewModel studentViewModel)
         {
-            try
+            if (ModelState.IsValid)
             {
-                var ViewToModel = Convert(viewModel);
-                _createStudent.Go(ViewToModel);
+                _createStudent.Go(new StudentModel
+                {
 
-                return RedirectToAction(nameof(Index));
+                    Name = studentViewModel.Name,
+
+
+                });
+
+                return RedirectToAction("Index");
+
             }
-            catch
-            {
-                return View();
-            }
+            return View(studentViewModel);
         }
+            //    try
+            //    {
+            //        var viewModelToModel = ConvertToModel(StudentViewModel studentViewModel);
+            //        _createStudent.Go(viewModelToModel);
 
-        // GET: Student/Edit/5
-        public ActionResult Edit(int id)
+            //        return RedirectToAction(nameof(Index));
+            //    }
+            //    catch
+            //    {
+            //        return View(viewModelToModel);
+            //    }
+            //}
+
+            // GET: Student/Edit/5
+            public ActionResult Edit(int id)
         {
             return View();
         }
@@ -110,12 +125,14 @@ namespace UI.Controllers
             }
         }
 
-        public StudentModel Convert(StudentViewModel viewModel)
-        {
-            var model = new StudentModel();
-            model.Id = viewModel.Id;
-            model.Name = viewModel.Name;
-            return model;
-        }
+        //public StudentViewModel ConvertToModel(StudentViewModel studentViewModel)
+        //{
+           
+        //    var model = new StudentModel();
+        //    model.Id = studentViewModel.Id;
+        //    model.Name = studentViewModel.Name;
+        //    return model;
+        //}
+        
     }
 }
